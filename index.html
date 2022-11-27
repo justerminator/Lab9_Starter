@@ -5,6 +5,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
+  window.TrackJS && TrackJS.install({ 
+    token: "88cd1a1cf3ae48fc9b7a2bf4ba96bac6"
+    // for more configuration options, see https://docs.trackjs.com
+  });
+</script>
+                        
   <title>Lab 9</title>
 
   <style>
@@ -88,13 +97,29 @@
   </main>
 
   <script>
+
+    class ValidError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "ErrorNumber";
+      }
+    }
+
     let form = document.querySelector('form');
+
+    var globFirst;
+    var globSecond;
+    
     form.addEventListener('submit', e => {
       e.preventDefault();
       let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
+      
       let operator = document.querySelector('#operator').value;
+      var firstNum = document.querySelector('#first-num').value;
+      globFirst = firstNum;
+      var secondNum = document.querySelector('#second-num').value;
+      globSecond = secondNum;
+
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
 
@@ -102,6 +127,120 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let conLog = errorBtns[0];
+    conLog.addEventListener('click', ()=>{
+      console.log('Console Log button');
+    })
+
+    let conErr = errorBtns[1];
+    conErr.addEventListener('click', ()=>{
+      console.error('Console error button');
+    })
+
+    let conCount = errorBtns[2];
+    conCount.addEventListener('click', ()=>{
+      console.count();
+    })
+
+    let conWarn = errorBtns[3];
+    conWarn.addEventListener('click', ()=>{
+      console.warn('Console Warn Button');
+    })
+
+    let conAssert = errorBtns[4];
+    conAssert.addEventListener('click', ()=>{
+      console.assert(true==true, 'True means true');
+    })
+
+    let conClear = errorBtns[5];
+    conClear.addEventListener('click', ()=>{
+      console.clear();
+    })
+
+    let conDir = errorBtns[6];
+    conDir.addEventListener('click', ()=>{
+      console.dir(form);
+    })
+
+    let conDirxml = errorBtns[7];
+    conDirxml.addEventListener('click', ()=>{
+      console.dirxml(form);
+    })
+
+    let exampleData = 'epic';
+    let conGrpStart = errorBtns[8];
+    conGrpStart.addEventListener('click', ()=>{
+      console.group(exampleData);
+    })
+
+    let conGrpEnd = errorBtns[9];
+    conGrpEnd.addEventListener('click', ()=>{
+      console.groupEnd(exampleData);
+    })
+
+
+    // data
+    let data = [
+      {
+        food: 'spaghett',
+        drink: 'rum',
+        snack: 'goldfish',
+        meat: 'ribeye'
+      },
+
+      {
+        food: 'poop',
+        drink: 'caprisun',
+        snack: 'flower',
+        meat: 'chicken'
+      }
+    ]
+
+    let conTable = errorBtns[10];
+    conTable.addEventListener('click', ()=>{
+      console.table(data);
+    })
+
+    let conStartTimer = errorBtns[11];
+    conStartTimer.addEventListener('click', ()=>{
+      console.time();
+    })
+
+    let conEndTimer = errorBtns[12];
+    conEndTimer.addEventListener('click', ()=>{
+      console.timeEnd();
+    })
+
+    function trace1(){
+      console.trace();
+    }
+
+    function trace2(){
+      trace1();
+    }
+
+    let conTrace = errorBtns[13];
+    conTrace.addEventListener('click', ()=>{
+      trace2();
+    })
+
+    let conGlob = errorBtns[14];
+    conGlob.addEventListener('click', ()=>{
+      try {
+        if (isNaN(globFirst) || isNaN(globSecond)){
+          throw new ValidError("unfortunately invalid input");
+        }
+        else{
+          console.log("no error");
+        }
+
+      } catch(err) {
+        console.error(`${err.name}:${err.message}`);
+      }
+    })
+
+    TrackJS.track('Testing TrackJS!');
+
   </script>
 </body>
 
