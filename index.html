@@ -237,6 +237,10 @@
       } catch(err) {
         console.error(`${err.name}:${err.message}`);
       }
+
+      finally {
+        console.log("done");
+      }
     })
 
     TrackJS.track('Testing TrackJS!');
